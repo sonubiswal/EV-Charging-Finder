@@ -16,6 +16,9 @@
 
 **Type any place in India. Get the nearest EV charging station and a driving route to it, on an interactive map.**
 
+[![Live Site](https://img.shields.io/badge/%F0%9F%8C%90%20Live%20Site-Visit%20Now-22c55e?style=for-the-badge)](https://sonubiswal.github.io/EV-Charging-Finder/)
+[![Demo Map](https://img.shields.io/badge/%F0%9F%97%BA%EF%B8%8F%20Demo%20Map-View%20Route-0ea5e9?style=for-the-badge)](https://sonubiswal.github.io/EV-Charging-Finder/demo-map.html)
+
 [✨ Features](#-features) &nbsp;•&nbsp;
 [🚀 Quick Start](#-quick-start) &nbsp;•&nbsp;
 [🔬 How It Works](#-how-it-works) &nbsp;•&nbsp;
