@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV Charging Station Finder</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.css" />
+    <link rel="stylesheet" href="styll.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>EV Station Finder</h1>
+            </div>
+        </div>
+
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <div class="error-message" id="error-message">
+                Unable to retrieve your location. Please check your GPS settings and try again.
+            </div>
+
+            <div class="controls">
+                <div class="search-box">
+                    <input type="text" id="address-input" placeholder="Enter an address, city, or place name...">
+                    <button id="search-location">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        Search
+                    </button>
+                </div>
+                
+                <div class="or-divider">OR</div>
+                
+                <button id="get-location">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <circle cx="12" cy="12" r="1"></circle>
+                        <line x1="12" y1="8" x2="12" y2="4"></line>
+                        <line x1="12" y1="20" x2="12" y2="16"></line>
+                        <line x1="8" y1="12" x2="4" y2="12"></line>
+                        <line x1="20" y1="12" x2="16" y2="12"></line>
+                    </svg>
+                    Use My Current Location
+                </button>
+                
+                <select id="radius-selector">
+                    <option value="5">5 km radius</option>
+                    <option value="10" selected>10 km radius</option>
+                    <option value="25">25 km radius</option>
+                    <option value="50">50 km radius</option>
+                </select>
+            </div>
+
+            <div class="loading" id="loading">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M12 6v6l4 2"></path>
+                </svg>
+                <p>Finding charging stations...</p>
+            </div>
+
+            <div class="map-container">
+                <div id="map"></div>
+                <div id="directions-panel" class="directions-panel"></div>
+            </div>
+
+            <div class="stations-list">
+                <h2>Nearby Charging Stations</h2>
+                <div id="stations-container">
+                    <p>Enter an address or use your current location to find charging stations nearby.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="java sc.js"></script>
+</body>
+</html>

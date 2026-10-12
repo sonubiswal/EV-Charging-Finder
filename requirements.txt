@@ -1,0 +1,3 @@
+﻿folium>=0.15
+requests>=2.31
+geopy>=2.4

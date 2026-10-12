@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Nearest Garage with Route</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        main {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 600px;
+        }
+        label {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #map {
+            height: 500px;
+            width: 100%;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        footer {
+            background-color: #4CAF50;
+            padding: 10px;
+            text-align: center;
+            color: white;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Find Nearest Garage with Route</h1>
+    </header>
+    <main>
+        <form id="locationForm">
+            <label for="locationInput">Enter your location (city, road, or place name):</label>
+            <input type="text" id="locationInput" placeholder="e.g., Mumbai, India" required>
+            <button type="submit">Find Garage</button>
+        </form>
+
+        <div id="map"></div>
+    </main>
+    <footer>
+        &copy; 2025 Find Nearest Garage. All rights reserved.
+    </footer>
+
+    <script>
+        const map = L.map('map').setView([20.5937, 78.9629], 5);  
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        const evStations = [
+            { name: 'Torque Town Garage', lat: 28.6139, lon: 77.2090 }, // New Delhi
+            { name: 'GearHead Garage', lat: 19.0760, lon: 72.8777 }, // Mumbai
+            { name: 'Pit Stop Pros', lat: 12.9716, lon: 77.5946 }, // Bangalore
+            { name: 'The Wrench Works', lat: 22.5726, lon: 88.3639 }, // Kolkata
+            { name: 'The Wrench Works', lat: 13.0827, lon: 80.2707 }, // Chennai
+            { name: 'RPM Revival', lat: 23.2599, lon: 77.4126 }, // Bhopal
+            { name: 'Clutch Kings Auto', lat: 26.8467, lon: 80.9462 }, // Lucknow
+            { name: 'Iron Horse Garage', lat: 17.3850, lon: 78.4867 }, // Hyderabad
+            { name: 'The Grease Hub', lat: 31.5204, lon: 74.3587 }, // Lahore (across border)
+            { name: 'Fuel & Fix Garage', lat: 9.9250, lon: 78.1198 }, // Madurai
+            { name: 'Fast Lane Fixers', lat: 26.9124, lon: 75.7873 }, // Jaipur
+            { name: 'Crank & Grind Garage', lat: 20.2961, lon: 85.8189 }, // Bhubaneswar
+            { name: 'Axle Alley', lat: 28.7041, lon: 77.1025 }, // Delhi NCR (another specific location in Delhi)
+            { name: 'Tuned Up Motors', lat: 30.7333, lon: 76.7794 }, // Chandigarh
+            { name: 'StreetShine Garage', lat: 22.3072, lon: 73.1812 }, // Surat
+            { name: 'Rust to Riches Auto', lat: 19.0584, lon: 72.8955 }, // Navi Mumbai
+            { name: 'Precision Pit Crew', lat: 26.4499, lon: 80.3319 }, // Kanpur
+            { name: 'Revline Garage', lat: 11.0168, lon: 76.9558 }, // Coimbatore
+            { name: 'High Octane Repairs', lat: 23.8103, lon: 90.4125 }, // Dhaka (neighboring country city)
+            { name: 'The Engine Lab', lat: 27.5949, lon: 78.9629 }  // Agra
+        ];
+
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Radius of the Earth in km
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            const distance = R * c; // Distance in km
+            return distance;
+        }
+
+        function findNearestStation(userLat, userLon) {
+            let nearestStation = null;
+            let minDistance = Infinity;
+
+            evStations.forEach(station => {
+                const distance = calculateDistance(userLat, userLon, station.lat, station.lon);
+                if (distance < minDistance) {
+                    nearestStation = station;
+                    minDistance = distance;
+                }
+            });
+            return nearestStation;
+        }
+
+        // Try to get the user's current location
+        function getUserLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const userLat = position.coords.latitude;
+                    const userLon = position.coords.longitude;
+
+                    map.setView([userLat, userLon], 13);  
+                    L.marker([userLat, userLon]).addTo(map)
+                        .bindPopup("Your Current Location")
+                        .openPopup();
+
+                    const nearestStation = findNearestStation(userLat, userLon);
+
+                    if (nearestStation) {
+                        const { lat, lon, name } = nerestStation;
+                        L.marker([lat, lon]).addTo(map)
+                            .bindPopup(`Nearest Garage: ${name}`)
+                            .openPopup();
+
+                        // Add the route between user location and the nearest station
+                        L.Routing.control({
+                            waypoints: [
+                                L.latLng(userLat, userLon),  // User location
+                                L.latLng(lat, lon)           // Nearest EV station
+                            ],
+                            routeWhileDragging: true
+                        }).addTo(map);
+                    }
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        // When the form is submitted, search the location input
+        document.getElementById("locationForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const location = document.getElementById("locationInput").value;
+            const geocodeUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`;
+
+            try {
+                const response = await fetch(geocodeUrl);
+                const data = await response.json();
+
+                if (data.length === 0) {
+                    alert("Location not found. Please try again.");
+                    return;
+                }
+
+                const userLat = parseFloat(data[0].lat);
+                const userLon = parseFloat(data[0].lon);
+                const userLocation = data[0].display_name;
+
+                map.setView([userLat, userLon], 13);  
+                L.marker([userLat, userLon]).addTo(map)
+                    .bindPopup(`Your Location: ${userLocation}`)
+                    .openPopup();
+
+                const nearestStation = findNearestStation(userLat, userLon);
+
+                if (nearestStation) {
+                    const { lat, lon, name } = nearestStation;
+                    L.marker([lat, lon]).addTo(map)
+                        .bindPopup(`Nearest EV Charging Station: ${name}`)
+                        .openPopup();
+
+                    // Add the route between user location and the nearest station
+                    L.Routing.control({
+                        waypoints: [
+                            L.latLng(userLat, userLon),  // User location
+                            L.latLng(lat, lon)           // Nearest EV station
+                        ],
+                        routeWhileDragging: true
+                    }).addTo(map);
+                }
+            } catch (error) {
+                console.error("Error fetching location:", error);
+                alert("An error occurred while fetching the location.");
+            }
+        });
+
+        // If no location is inputted, try to get the user's current location
+        getUserLocation();
+    </script>
+</body>
+</html>
