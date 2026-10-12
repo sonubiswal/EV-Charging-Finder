@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV Charging System Support</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #0078d7;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section h2 {
+            color: #0078d7;
+            margin-bottom: 10px;
+        }
+
+        .section p {
+            margin: 0 0 10px;
+            line-height: 1.6;
+        }
+
+        .faq {
+            margin-top: 20px;
+        }
+
+        .faq h3 {
+            cursor: pointer;
+            padding: 10px;
+            margin: 0;
+            background-color: #f0f0f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .faq h3:hover {
+            background-color: #e7e7f1;
+        }
+
+        .faq-content {
+            display: none;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-top: none;
+            background-color: #f9f9fd;
+            border-radius: 0 0 4px 4px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: #0078d7;
+            color: white;
+        }
+
+        footer a {
+            color: #d4ebff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>EV Charging System Support</h1>
+    </header>
+
+    <div class="container">
+        <div class="section">
+            <h2>Getting Started</h2>
+            <p>Welcome to the support page for your EV Charging System. Here, you'll find all the resources and assistance needed to get started, troubleshoot, and optimize your EV charging experience.</p>
+        </div>
+
+        <div class="section">
+            <h2>Common Issues</h2>
+            <ul>
+                <li>Charging station not connecting to the app</li>
+                <li>Vehicle not charging properly</li>
+                <li>Error messages on the screen</li>
+                <li>Billing or payment issues</li>
+            </ul>
+        </div>
+
+        <div class="section faq">
+            <h2>FAQs</h2>
+            <h3>How do I install the EV Charging System?</h3>
+            <div class="faq-content">
+                <p>Follow the installation guide provided in the package. Ensure a certified electrician handles the wiring and setup for safety and compliance.</p>
+            </div>
+
+            <h3>Why is my vehicle not charging?</h3>
+            <div class="faq-content">
+                <p>Ensure the charging cable is securely connected to both the vehicle and the station. Check for any error messages and consult the manual.</p>
+            </div>
+
+            <h3>How can I update the software?</h3>
+            <div class="faq-content">
+                <p>Connect the charging system to your Wi-Fi network and navigate to the settings menu in the companion app to check for updates.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Need more help? Contact our <a href="plugin24.here@gmail.com">support team</a> or call us at +94-8917275708.</p>
+    </footer>
+
+    <script>
+        const faqHeaders = document.querySelectorAll('.faq h3');
+
+        faqHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                content.style.display = content.style.display === 'block' ? 'none' : 'block';
+            });
+        });
+    </script>
+</body>
+</html>

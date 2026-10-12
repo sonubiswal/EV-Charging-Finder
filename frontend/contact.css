@@ -7,25 +7,25 @@ body{
     font-family: 'Outfit';
     background: linear-gradient(#78a477,#fffdfd);
 }
-.contant-container{
+.contact-container{
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
 }
-.contant-left{
+.contact-left{
     display: flex;
     flex-direction:column ;
     align-items: start;
     gap: 20px;
 }
-.contant-left-title h2{
+.contact-left-title h2{
     font-weight: 600;
     color: #a363aa;
     font-size: 40px;
     margin-bottom: 5px;
 }
-.contant-left-title hr{
+.contact-left-title hr{
     border: none;
     width: 120px;
     height: 5px;
@@ -33,7 +33,7 @@ body{
     border-radius: 10px;
     margin-bottom: 20px;
 }
-.contant-input{
+.contact-input{
     width: 400px;
     height: 50px;
     border: none;
@@ -43,18 +43,18 @@ body{
     color: #666;
     border-radius: 50px;
 }
-.contant-left textarea{
+.contact-left textarea{
     height: 140px;
     padding-top: 15px;
     border-radius: 20px;
 }
-.contant-input:focus{
+.contact-input:focus{
     border: 2px solid #ff994f;
 }
-.contant-input::placeholder{
+.contact-input::placeholder{
     color: #a9a9a9;
 }
-.contant-left button{
+.contact-left button{
     display: flex;
     align-items: center;
     padding: 15px 30px;
@@ -66,14 +66,14 @@ body{
     background: linear-gradient(270deg,#ff994f,#fa6d86);
     cursor: pointer;
 }
-.contant-right img{
+.contact-right img{
     width: 500px;
 }
 @media (max-width : 800px){
-    .contant-input{
+    .contact-input{
         width: 80vw;
     }
-    .contant-right{
+    .contact-right{
         display: none;
     }
 } 

@@ -1,219 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
-    
-            <meta name="viewport" content="width=device-width,
-                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-            <style>
-                #map_ca6ad5ff20544081c1b035c4f689c46f {
-                    position: relative;
-                    width: 100.0%;
-                    height: 100.0%;
-                    left: 0.0%;
-                    top: 0.0%;
-                }
-                .leaflet-container { font-size: 1rem; }
-            </style>
-
-            <style>html, body {
-                width: 100%;
-                height: 100%;
-                margin: 0;
-                padding: 0;
-            }
-            </style>
-
-            <style>#map {
-                position:absolute;
-                top:0;
-                bottom:0;
-                right:0;
-                left:0;
-                }
-            </style>
-
-            <script>
-                L_NO_TOUCH = false;
-                L_DISABLE_3D = false;
-            </script>
-
-        
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlugIn_here!</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-    
-            <div class="folium-map" id="map_ca6ad5ff20544081c1b035c4f689c46f" ></div>
-        
+    <div class="banner">
+        <div class="navbar">
+            <img src="img/crop-logo.png" class="logo" alt="Logo">
+            <ul>
+                <li><a href="index_station.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="support.html">Support</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <h1>Quickly Locate EV Charging Stations</h1>
+            <p>"Offer a seamless solution for EV drivers to easily locate charging stations, with optimized routes and an intuitive interface—enhancing their electric journey anytime, anywhere."</p>
+            <div>
+                <button type="button" onclick="window.location.href='demo-map.html'">
+                    Live Demo Map
+                    <span></span>
+                </button>
+                <button type="button" onclick="window.location.href='garage_find.html'">
+                    Next-door garage
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </div>
 </body>
-<script>
-    
-    
-            var map_ca6ad5ff20544081c1b035c4f689c46f = L.map(
-                "map_ca6ad5ff20544081c1b035c4f689c46f",
-                {
-                    center: [20.2602964, 85.8394521],
-                    crs: L.CRS.EPSG3857,
-                    ...{
-  "zoom": 6,
-  "zoomControl": true,
-  "preferCanvas": false,
-}
-
-                }
-            );
-
-            
-
-        
-    
-            var tile_layer_904025fc59da0454e7adee2b6fea10b6 = L.tileLayer(
-                "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
-                {
-  "minZoom": 0,
-  "maxZoom": 17,
-  "maxNativeZoom": 17,
-  "noWrap": false,
-  "attribution": "Map data: \u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors, \u003ca href=\"http://viewfinderpanoramas.org\"\u003eSRTM\u003c/a\u003e | Map style: \u0026copy; \u003ca href=\"https://opentopomap.org\"\u003eOpenTopoMap\u003c/a\u003e (\u003ca href=\"https://creativecommons.org/licenses/by-sa/3.0/\"\u003eCC-BY-SA\u003c/a\u003e)",
-  "subdomains": "abc",
-  "detectRetina": false,
-  "tms": false,
-  "opacity": 1,
-}
-
-            );
-        
-    
-            tile_layer_904025fc59da0454e7adee2b6fea10b6.addTo(map_ca6ad5ff20544081c1b035c4f689c46f);
-        
-    
-            var marker_3679e6e58f62302e465dea08b9557037 = L.marker(
-                [20.2602964, 85.8394521],
-                {
-}
-            ).addTo(map_ca6ad5ff20544081c1b035c4f689c46f);
-        
-    
-            var icon_9a4f26a156c089984542ad4ee784be84 = L.AwesomeMarkers.icon(
-                {
-  "markerColor": "blue",
-  "iconColor": "white",
-  "icon": "person",
-  "prefix": "fa",
-  "extraClasses": "fa-rotate-0",
-}
-            );
-        
-    
-        var popup_df079d866c5e4199780cabff9493b188 = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_2b6ba6e9da42e7effa12f48b22177e08 = $(`<div id="html_2b6ba6e9da42e7effa12f48b22177e08" style="width: 100.0%; height: 100.0%;"><b>You:</b> Bhubaneswar</div>`)[0];
-                popup_df079d866c5e4199780cabff9493b188.setContent(html_2b6ba6e9da42e7effa12f48b22177e08);
-            
-        
-
-        marker_3679e6e58f62302e465dea08b9557037.bindPopup(popup_df079d866c5e4199780cabff9493b188)
-        ;
-
-        
-    
-    
-            marker_3679e6e58f62302e465dea08b9557037.bindTooltip(
-                `<div>
-                     Your location
-                 </div>`,
-                {
-  "sticky": true,
-}
-            );
-        
-    
-                marker_3679e6e58f62302e465dea08b9557037.setIcon(icon_9a4f26a156c089984542ad4ee784be84);
-            
-    
-            var marker_f2fa3d780a883cd81a1bdd5796b341ab = L.marker(
-                [20.227001, 85.840966],
-                {
-}
-            ).addTo(map_ca6ad5ff20544081c1b035c4f689c46f);
-        
-    
-            var icon_3855d93346847365cc1dcb6edc16460f = L.AwesomeMarkers.icon(
-                {
-  "markerColor": "green",
-  "iconColor": "white",
-  "icon": "bolt",
-  "prefix": "fa",
-  "extraClasses": "fa-rotate-0",
-}
-            );
-        
-    
-        var popup_22ed866f0ecb40c0e4fef30cd7a57353 = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_816468477700949bbb95865929d62280 = $(`<div id="html_816468477700949bbb95865929d62280" style="width: 100.0%; height: 100.0%;"><b>Plot No 2175, 3766, Lewis Road, Samantarapur, Old Town, Bhubaneswar, Odisha 751002</b><br/>Distance: 3.69 km</div>`)[0];
-                popup_22ed866f0ecb40c0e4fef30cd7a57353.setContent(html_816468477700949bbb95865929d62280);
-            
-        
-
-        marker_f2fa3d780a883cd81a1bdd5796b341ab.bindPopup(popup_22ed866f0ecb40c0e4fef30cd7a57353)
-        ;
-
-        
-    
-    
-            marker_f2fa3d780a883cd81a1bdd5796b341ab.bindTooltip(
-                `<div>
-                     Nearest EV station
-                 </div>`,
-                {
-  "sticky": true,
-}
-            );
-        
-    
-                marker_f2fa3d780a883cd81a1bdd5796b341ab.setIcon(icon_3855d93346847365cc1dcb6edc16460f);
-            
-    
-            var poly_line_d75f4d609f1c79c818041162b64c3bfa = L.polyline(
-                [[20.260126, 85.839699], [20.25992, 85.839538], [20.259632, 85.839967], [20.258923, 85.840988], [20.258692, 85.841297], [20.258542, 85.841163], [20.258434, 85.841319], [20.258344, 85.841489], [20.258265, 85.84156], [20.258183, 85.841475], [20.257919, 85.841205], [20.257765, 85.84107], [20.257654, 85.840976], [20.257602, 85.840932], [20.257481, 85.840842], [20.257382, 85.840767], [20.256871, 85.840485], [20.256637, 85.840337], [20.256501, 85.840266], [20.256362, 85.840238], [20.256247, 85.840238], [20.256154, 85.840257], [20.256094, 85.840269], [20.255871, 85.840312], [20.255732, 85.840358], [20.255536, 85.840432], [20.255281, 85.840549], [20.2549, 85.840774], [20.254752, 85.840873], [20.25464, 85.840947], [20.254541, 85.841002], [20.254495, 85.841022], [20.25444, 85.841042], [20.254238, 85.841101], [20.254076, 85.841135], [20.253969, 85.841153], [20.253744, 85.841175], [20.25317, 85.84119], [20.252928, 85.841197], [20.252376, 85.841206], [20.252161, 85.841218], [20.251957, 85.84123], [20.251686, 85.841249], [20.251469, 85.84125], [20.251044, 85.841252], [20.250081, 85.841266], [20.249974, 85.841267], [20.249364, 85.841255], [20.248997, 85.841261], [20.24852, 85.84127], [20.248298, 85.84128], [20.24817, 85.841281], [20.247945, 85.841283], [20.247653, 85.84128], [20.247555, 85.84128], [20.247234, 85.841264], [20.246894, 85.841251], [20.246537, 85.841237], [20.24639, 85.841229], [20.246086, 85.841212], [20.245924, 85.841208], [20.24569, 85.841203], [20.245416, 85.8412], [20.245112, 85.841197], [20.244633, 85.841161], [20.24452, 85.841156], [20.244131, 85.841131], [20.243619, 85.8411], [20.243156, 85.841082], [20.242733, 85.84108], [20.242359, 85.841084], [20.242079, 85.841077], [20.241567, 85.841094], [20.241485, 85.841098], [20.240975, 85.841106], [20.240645, 85.841121], [20.240474, 85.841129], [20.240274, 85.841139], [20.240135, 85.841145], [20.239839, 85.841159], [20.239708, 85.841162], [20.239597, 85.841164], [20.239513, 85.841165], [20.239145, 85.841169], [20.238889, 85.841176], [20.238304, 85.841189], [20.237982, 85.841196], [20.237621, 85.841206], [20.237547, 85.841208], [20.237366, 85.841211], [20.236715, 85.841219], [20.236541, 85.841221], [20.236243, 85.841223], [20.236069, 85.841229], [20.235054, 85.84124], [20.234922, 85.841241], [20.233819, 85.841249], [20.232851, 85.84124], [20.232677, 85.841237], [20.231937, 85.84124], [20.231381, 85.841232], [20.231038, 85.841223], [20.230766, 85.841217], [20.230578, 85.841212], [20.230107, 85.841205], [20.230023, 85.841204], [20.229808, 85.841198], [20.229407, 85.841192], [20.229287, 85.841191], [20.228551, 85.841165], [20.227801, 85.841159], [20.227618, 85.841163], [20.227477, 85.841173], [20.227364, 85.841187], [20.227258, 85.841212], [20.227188, 85.841237], [20.227178, 85.841195], [20.227163, 85.841132], [20.227271, 85.841098], [20.227366, 85.84066], [20.226931, 85.840603], [20.22689, 85.84089], [20.226895, 85.840973]],
-                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 4}
-            ).addTo(map_ca6ad5ff20544081c1b035c4f689c46f);
-        
-    
-            poly_line_d75f4d609f1c79c818041162b64c3bfa.bindTooltip(
-                `<div>
-                     Driving route · 3.69 km
-                 </div>`,
-                {
-  "sticky": true,
-}
-            );
-        
-    
-            map_ca6ad5ff20544081c1b035c4f689c46f.fitBounds(
-                [[20.2602964, 85.8394521], [20.227001, 85.840966]],
-                {}
-            );
-        
-</script>
 </html>

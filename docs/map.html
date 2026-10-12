@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Nearest EV Charging Station with Route</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Find Nearest EV Charging Station with Route</h1>
+    <form id="locationForm">
+        <label for="locationInput">Enter your location (city, road, or place name):</label>
+        <input type="text" id="locationInput" placeholder="e.g., Mumbai, India" required>
+        <button type="submit">Find EV Station</button>
+    </form>
+
+    <div id="map"></div>
+
+    <script>
+        const map = L.map('map').setView([20.5937, 78.9629], 5);  
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        const evStations = [
+            { name: 'Station 1', lat: 28.6139, lon: 77.2090 },  
+            { name: 'Station 2', lat: 19.0760, lon: 72.8777 },  
+            { name: 'Station 3', lat: 12.9716, lon: 77.5946 }   
+        ];
+
+        
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Radius of the Earth in km
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            const distance = R * c; // Distance in km
+            return distance;
+        }
+
+        
+        function findNearestStation(userLat, userLon) {
+            let nearestStation = null;
+            let minDistance = Infinity;
+
+            evStations.forEach(station => {
+                const distance = calculateDistance(userLat, userLon, station.lat, station.lon);
+                if (distance < minDistance) {
+                    nearestStation = station;
+                    minDistance = distance;
+                }
+            });
+            return nearestStation;
+        }
+
+        
+        document.getElementById("locationForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const location = document.getElementById("locationInput").value;
+            const geocodeUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`;
+
+            try {
+                const response = await fetch(geocodeUrl);
+                const data = await response.json();
+
+                if (data.length === 0) {
+                    alert("Location not found. Please try again.");
+                    return;
+                }
+
+                const userLat = parseFloat(data[0].lat);
+                const userLon = parseFloat(data[0].lon);
+                const userLocation = data[0].display_name;
+
+                map.setView([userLat, userLon], 13);  
+                L.marker([userLat, userLon]).addTo(map)
+                    .bindPopup(`Your Location: ${userLocation}`)
+                    .openPopup();
+
+                const nearestStation = findNearestStation(userLat, userLon);
+
+                if (nearestStation) {
+                    const { lat, lon, name } = nearestStation;
+                    L.marker([lat, lon]).addTo(map)
+                        .bindPopup(`Nearest EV Charging Station: ${name}`)
+                        .openPopup();
+
+                    // Add the route between user location and the nearest station
+                    L.Routing.control({
+                        waypoints: [
+                            L.latLng(userLat, userLon),  // User location
+                            L.latLng(lat, lon)           // Nearest EV station
+                        ],
+                        routeWhileDragging: true
+                    }).addTo(map);
+                }
+            } catch (error) {
+                console.error("Error fetching location:", error);
+                alert("An error occurred while fetching the location.");
+            }
+        });
+    </script>
+</body>
+</html>
+
